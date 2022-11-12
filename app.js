@@ -2,7 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const {Sequelize, DataTypes} = require("sequelize");
-const { INTEGER } = require("sequelize");
 
 const sequelize = new Sequelize(
     "medisurance",
@@ -39,9 +38,51 @@ const agent_contact = sequelize.define(
     }
 )
 
+
+const client = sequelize.define(
+    "client",
+    {
+        AadharNo: {
+            type : DataTypes.INTEGER,
+            primaryKey : true
+        },
+
+        FirstName : DataTypes.STRING,
+        MiddleName : DataTypes.STRING,
+        LastName : DataTypes.STRING,
+
+        Age : DataTypes.INTEGER,
+        Height : DataTypes.INTEGER,
+        Weight : DataTypes.INTEGER,
+
+        DOB : DataTypes.DATE 
+
+    },
+
+    { 
+        timestamps: false,
+        freezeTableName: true
+    
+    }
+)
+
+
+// client.create({
+//     AadharNo : 3456,
+//     FirstName : "Vanshika",
+//     MiddleName : "Paresh",
+//     LastName : "Shah",
+//     Age : 19,
+//     Height : 140,
+//     Weight : 50,
+//     DOB : "2003-5-22"
+// })
+
+
+
 agent_contact.create({
-    AgentID : 1,
-    ContactNo : 911
+    // AgentID : 1,
+    // ContactNo : 911
 })
 
 
@@ -68,16 +109,11 @@ app.get("/agent", function(req, res) {
 
 app.post("/client", function(req, res){
     let email = req.body.email;
-    let pwd = req.body.pwd;
+    let aadhar = req.body.aadhar;
 
-    console.log(email);
 
-    if(email == "samarth@gmail.com"){
-        res.render("success")
-    }
-    else{
-        console.log("failure");
-    }
+
+    
 
 })
 
