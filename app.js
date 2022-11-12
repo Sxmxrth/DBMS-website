@@ -80,10 +80,10 @@ const client = sequelize.define(
 
 
 
-agent_contact.create({
-    // AgentID : 1,
-    // ContactNo : 911
-})
+// agent_contact.create({
+//     // AgentID : 1,
+//     // ContactNo : 911
+// })
 
 
 const app = express();
@@ -111,9 +111,17 @@ app.post("/client", function(req, res){
     let email = req.body.email;
     let aadhar = req.body.aadhar;
 
-
-
-    
+    client.findAll({
+        where : {
+            AadharNo : aadhar
+        }
+    }).then(function(response){
+        if(response != null){
+            res.render("success");
+        } else{
+            res.render("failure");
+        }
+    })
 
 })
 
