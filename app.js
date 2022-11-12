@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const Sequelize = require("sequelize");
+const {Sequelize, DataTypes} = require("sequelize");
+const { INTEGER } = require("sequelize");
 
 const sequelize = new Sequelize(
     "medisurance",
@@ -19,23 +20,29 @@ sequelize.authenticate().then(() => {
     console.error('Unable to connect to the database: ', error);
 });
 
-sequelize.sync().then(() => {
+const agent_contact = sequelize.define(
+    "agent_contact_number",
+    {
+        AgentID : {
+            type : DataTypes.INTEGER,
+            primaryKey : true
+        },
+        
+        ContactNo : DataTypes.INTEGER
+
+    },
+
+    { 
+        timestamps: false,
+        freezeTableName: true
     
-    agent_contact_number.create({
-        AgentID : 1,
-        ContactNo : 911
-    }).then(function(res){
-        console.log(res);
-    }).catch((error) => {
-        console.log("failed to create new record");
-    })
+    }
+)
 
-
-
-
- }).catch((error) => {
-    console.error('Unable to create table : ', error);
-});
+agent_contact.create({
+    AgentID : 1,
+    ContactNo : 911
+})
 
 
 const app = express();
