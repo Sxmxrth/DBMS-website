@@ -66,6 +66,26 @@ const client = sequelize.define(
     }
 )
 
+const policy = sequelize.define(
+    "policy",
+    {
+        PolicyCode : DataTypes.INTEGER,
+        PolicyBenefits : DataTypes.STRING,
+        Tenure : DataTypes.INTEGER,
+        Type : DataTypes.STRING,
+        Premium : DataTypes.STRING,
+        AadharNo : DataTypes.INTEGER
+
+    },
+
+    { 
+        timestamps: false,
+        freezeTableName: true
+    
+    }
+)
+policy.removeAttribute('id');
+
 
 // client.create({
 //     AadharNo : 3456,
@@ -117,16 +137,30 @@ app.post("/client", function(req, res){
         }
     }).then(function(clientInfo){
         if(clientInfo != null){
-            console.log(clientInfo[0].dataValues.FirstName);
-            res.render("success",{
-                
-                firstName: clientInfo[0].dataValues.FirstName,
-                lastName : clientInfo[0].dataValues.LastName,
-                age : clientInfo[0].dataValues.Age,
-                height : clientInfo[0].dataValues.Height,
-                weight : clientInfo[0].dataValues.Weight
+
+            policy.findAll({
+                where : {
+                    AadharNo : aadhar
+                }
+            }).then(function(policyInfo){
+                if(policyInfo != null){
+                    console.log(clientInfo[0].dataValues.FirstName);
+                    res.render("success",{
+
+                    firstName: clientInfo[0].dataValues.FirstName,
+                    lastName : clientInfo[0].dataValues.LastName,
+                    age : clientInfo[0].dataValues.Age,
+                    height : clientInfo[0].dataValues.Height,
+                    weight : clientInfo[0].dataValues.Weight,
+                    policycodes : policyInfo[0].dataValues.PolicyCode
 
             });
+                }
+            })
+
+
+
+            
         } else{
             res.render("failure");
         }
