@@ -119,7 +119,13 @@ app.post("/client", function(req, res){
         if(clientInfo != null){
             console.log(clientInfo[0].dataValues.FirstName);
             res.render("success",{
-                Name: clientInfo[0].dataValues.FirstName
+                
+                firstName: clientInfo[0].dataValues.FirstName,
+                lastName : clientInfo[0].dataValues.LastName,
+                age : clientInfo[0].dataValues.Age,
+                height : clientInfo[0].dataValues.Height,
+                weight : clientInfo[0].dataValues.Weight
+
             });
         } else{
             res.render("failure");
