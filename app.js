@@ -1,6 +1,21 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const mysql = require("mysql");
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Samarth2002#"
+});
+
+con.connect(function(err) {
+    if(err){
+        console.log(err);
+    }else{
+        console.log("Connected!");
+    }
+});
 
 const app = express();
 
