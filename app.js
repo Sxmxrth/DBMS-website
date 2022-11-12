@@ -115,9 +115,12 @@ app.post("/client", function(req, res){
         where : {
             AadharNo : aadhar
         }
-    }).then(function(response){
-        if(response != null){
-            res.render("success");
+    }).then(function(clientInfo){
+        if(clientInfo != null){
+            console.log(clientInfo[0].dataValues.FirstName);
+            res.render("success",{
+                Name: clientInfo[0].dataValues.FirstName
+            });
         } else{
             res.render("failure");
         }
