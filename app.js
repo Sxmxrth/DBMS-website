@@ -1,21 +1,24 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
-const mysql = require("mysql");
+const Sequelize = require("sequelize");
 
-var con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Samarth2002#"
-});
-
-con.connect(function(err) {
-    if(err){
-        console.log(err);
-    }else{
-        console.log("Connected!");
+const sequelize = new Sequelize(
+    "medisurance",
+    "root",
+    "Samarth2002#",
+    {
+        host : "localhost",
+        dialect : "mysql"
     }
+)
+
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+ }).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
 });
+
 
 const app = express();
 
