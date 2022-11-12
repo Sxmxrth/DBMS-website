@@ -19,6 +19,24 @@ sequelize.authenticate().then(() => {
     console.error('Unable to connect to the database: ', error);
 });
 
+sequelize.sync().then(() => {
+    
+    agent_contact_number.create({
+        AgentID : 1,
+        ContactNo : 911
+    }).then(function(res){
+        console.log(res);
+    }).catch((error) => {
+        console.log("failed to create new record");
+    })
+
+
+
+
+ }).catch((error) => {
+    console.error('Unable to create table : ', error);
+});
+
 
 const app = express();
 
