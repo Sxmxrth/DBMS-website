@@ -137,7 +137,7 @@ app.post("/client", function(req, res){
             AadharNo : aadhar
         }
     }).then(function(clientInfo){
-        if(clientInfo != null){
+        if(clientInfo.length != 0){
 
             console.log(clientInfo[0].dataValues.FirstName);
             res.render("success",{
@@ -150,8 +150,8 @@ app.post("/client", function(req, res){
                 //policycodes : policyList
 
             });
-        
         } else{
+            console.log("user not found");
             res.render("failure");
         }
     })
