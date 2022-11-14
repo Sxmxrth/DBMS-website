@@ -66,6 +66,35 @@ const client = sequelize.define(
     }
 )
 
+
+const agent = sequelize.define(
+    "agent",
+    {
+        AgentID: {
+            type : DataTypes.INTEGER,
+            primaryKey : true
+        },
+
+        FirstName : DataTypes.STRING,
+        MiddleName : DataTypes.STRING,
+        LastName : DataTypes.STRING,
+
+        Age : DataTypes.INTEGER,
+        Income : DataTypes.INTEGER,
+        Type : DataTypes.STRING,
+
+        DOB : DataTypes.DATE 
+
+    },
+
+    { 
+        timestamps: false,
+        freezeTableName: true
+    
+    }
+)
+
+
 const policy = sequelize.define(
     "policy",
     {
@@ -130,7 +159,7 @@ app.get("/agent", function(req, res) {
 
 app.post("/client", function(req, res){
     let email = req.body.email;
-    let aadhar = req.body.aadhar;
+    let aadhar = req.body.pkey;
 
     client.findAll({
         where : {
@@ -157,6 +186,26 @@ app.post("/client", function(req, res){
     })
 
 })
+
+app.post("/agent", function(req, res){
+    let email = req.body.email;
+    let agendid = req.body.pkey;
+
+    agent.findAll({
+        where : {
+            AgentID : agendid
+        }
+    }).then(function(agentInfo){
+        if(agentInfo.length != 0){
+            console.log(agentInfo[0].dataValues);
+        }else{
+            console.log("Agent not founds");
+        }
+    })
+})
+
+
+
 
 app.listen(3000, function(){
     console.log("server is up and running on port 3000");
