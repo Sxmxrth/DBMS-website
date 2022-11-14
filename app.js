@@ -169,7 +169,7 @@ app.post("/client", function(req, res){
         if(clientInfo.length != 0){
 
             console.log(clientInfo[0].dataValues.FirstName);
-            res.render("success",{
+            res.render("successclient",{
 
                 firstName: clientInfo[0].dataValues.FirstName,
                 lastName : clientInfo[0].dataValues.LastName,
@@ -198,8 +198,18 @@ app.post("/agent", function(req, res){
     }).then(function(agentInfo){
         if(agentInfo.length != 0){
             console.log(agentInfo[0].dataValues);
+
+            res.render("successagent", {
+                firstName : agentInfo[0].dataValues.FirstName,
+                lastName : agentInfo[0].dataValues.LastName,
+                age : agentInfo[0].dataValues.Age,
+                income : agentInfo[0].dataValues.Income,
+                type : agentInfo[0].dataValues.Type
+            })
+
         }else{
-            console.log("Agent not founds");
+            res.render("failure")
+            console.log("Agent not found");
         }
     })
 })
