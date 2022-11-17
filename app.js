@@ -214,7 +214,11 @@ app.post("/agent", function(req, res){
     })
 })
 
+app.get("/currentAgent", function(req, res){
+    //res.send("Hello")
 
+
+})
 
 
 app.listen(3000, function(){
