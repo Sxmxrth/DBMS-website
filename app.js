@@ -55,7 +55,8 @@ const client = sequelize.define(
         Height : DataTypes.INTEGER,
         Weight : DataTypes.INTEGER,
 
-        DOB : DataTypes.DATE 
+        DOB : DataTypes.DATE ,
+        AgentID : DataTypes.INTEGER
 
     },
 
@@ -83,7 +84,8 @@ const agent = sequelize.define(
         Income : DataTypes.INTEGER,
         Type : DataTypes.STRING,
 
-        DOB : DataTypes.DATE 
+        DOB : DataTypes.DATE, 
+        NumberOfClients : DataTypes.INTEGER
 
     },
 
@@ -168,7 +170,7 @@ app.post("/client", function(req, res){
     }).then(function(clientInfo){
         if(clientInfo.length != 0){
 
-            console.log(clientInfo[0].dataValues.FirstName);
+            console.log(clientInfo[0].dataValues);
             res.render("successclient",{
 
                 firstName: clientInfo[0].dataValues.FirstName,
@@ -176,6 +178,7 @@ app.post("/client", function(req, res){
                 age : clientInfo[0].dataValues.Age,
                 height : clientInfo[0].dataValues.Height,
                 weight : clientInfo[0].dataValues.Weight,
+                agentID : clientInfo[0].dataValues.AgentID
                 //policycodes : policyList
 
             });
@@ -204,7 +207,8 @@ app.post("/agent", function(req, res){
                 lastName : agentInfo[0].dataValues.LastName,
                 age : agentInfo[0].dataValues.Age,
                 income : agentInfo[0].dataValues.Income,
-                type : agentInfo[0].dataValues.Type
+                type : agentInfo[0].dataValues.Type,
+                number : agentInfo[0].dataValues.NumberOfClients
             })
 
         }else{
@@ -214,8 +218,9 @@ app.post("/agent", function(req, res){
     })
 })
 
-app.get("/currentAgent", function(req, res){
-    //res.send("Hello")
+app.get("/agentinfo/:agentID", function(req, res){
+   
+    console.log(req.params.agentID);
 
 
 })
