@@ -171,7 +171,7 @@ app.post("/client", function(req, res){
     }).then(function(clientInfo){
         if(clientInfo.length != 0){
 
-            console.log(clientInfo[0].dataValues);
+            //console.log(clientInfo[0].dataValues);
             res.render("successclient",{
 
                 firstName: clientInfo[0].dataValues.FirstName,
@@ -201,7 +201,7 @@ app.post("/agent", function(req, res){
         }
     }).then(function(agentInfo){
         if(agentInfo.length != 0){
-            console.log(agentInfo[0].dataValues);
+            //console.log(agentInfo[0].dataValues);
 
             res.render("successagent", {
                 firstName : agentInfo[0].dataValues.FirstName,
@@ -228,9 +228,12 @@ app.get("/agentinfo/:agentID", function(req, res){
 
 app.get("/buy/:agentID", function (req, res){
 
-    console.log(req.params.agentID);
+    console.log("---------------------------------------------");
+    //console.log(req.params.agentID);
     agent.findAll().then(res => {
-        console.log(res)
+        res.forEach(element => {
+            console.log(element.dataValues);
+        });
     })
     res.render("buy")
 })
