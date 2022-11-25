@@ -222,7 +222,12 @@ app.get("/agentinfo/:agentID", function(req, res){
    
     console.log(req.params.agentID);
 
+})
 
+app.get("/buy/:agentID", function (req, res){
+
+    console.log(req.params.agentID);
+    res.render("buy")
 })
 
 
