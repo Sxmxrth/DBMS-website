@@ -229,8 +229,8 @@ app.get("/agentinfo/:agentID", function(req, res){
 app.get("/buy/:agentID", function (req, res){
 
     console.log(req.params.agentID);
-    agent.findAll({
-
+    agent.findAll().then(res => {
+        console.log(res)
     })
     res.render("buy")
 })
