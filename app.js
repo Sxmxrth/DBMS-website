@@ -85,7 +85,8 @@ const agent = sequelize.define(
         Type : DataTypes.STRING,
 
         DOB : DataTypes.DATE, 
-        NumberOfClients : DataTypes.INTEGER
+        NumberOfClients : DataTypes.INTEGER,
+        PolicyCode : DataTypes.INTEGER
 
     },
 
@@ -208,7 +209,8 @@ app.post("/agent", function(req, res){
                 age : agentInfo[0].dataValues.Age,
                 income : agentInfo[0].dataValues.Income,
                 type : agentInfo[0].dataValues.Type,
-                number : agentInfo[0].dataValues.NumberOfClients
+                number : agentInfo[0].dataValues.NumberOfClients,
+                policyCode : agentInfo[0].dataValues.PolicyCode
             })
 
         }else{
@@ -227,6 +229,9 @@ app.get("/agentinfo/:agentID", function(req, res){
 app.get("/buy/:agentID", function (req, res){
 
     console.log(req.params.agentID);
+    agent.findAll({
+
+    })
     res.render("buy")
 })
 
