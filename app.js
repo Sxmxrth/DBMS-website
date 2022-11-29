@@ -263,7 +263,7 @@ app.post("/clientAdd", function(req, res){
         LastName : req.body.lastName,
         Age : Number(req.body.age),
         Height : Number(req.body.height),
-        Weight : Number(req.body.weightName),
+        Weight : Number(req.body.weight),
         DOB : req.body.dob,
         AgentID : req.body.agentID
     })
