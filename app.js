@@ -144,7 +144,7 @@ const app = express();
 app.use(bodyParser.urlencoded({extended : true}));
 
 app.set("view engine", "ejs");
-app.use(express.static("public"));
+app.use(express.static("public/css"));
 
 app.get("/", function(req, res){
     res.render("home", {
@@ -188,7 +188,6 @@ app.post("/client", function(req, res){
             res.render("failure");
         }
     })
-
 })
 
 app.post("/agent", function(req, res){
@@ -210,7 +209,8 @@ app.post("/agent", function(req, res){
                 income : agentInfo[0].dataValues.Income,
                 type : agentInfo[0].dataValues.Type,
                 number : agentInfo[0].dataValues.NumberOfClients,
-                policyCode : agentInfo[0].dataValues.PolicyCode
+                policyCode : agentInfo[0].dataValues.PolicyCode,
+                agentID : agentInfo[0].dataValues.AgentID
             })
 
         }else{
@@ -222,13 +222,20 @@ app.post("/agent", function(req, res){
 
 app.get("/agentinfo/:agentID", function(req, res){
    
-    console.log(req.params.agentID);
+    //console.log(req.params.agentID);
+    agent.findOne({
+        where : {
+            AgentID : req.params.agentID
+        }
+    }).then(doc => {
+        res.render("agentInfo", {
+            fname : doc.dataValues.FirstName
+        })
+    })
 
 })
 
 app.get("/buy/:agentID", function (req, res){
-
-    console.log("---------------------------------------------");
     //console.log(req.params.agentID);
     agent.findAll().then(res => {
         res.forEach(element => {
@@ -238,6 +245,42 @@ app.get("/buy/:agentID", function (req, res){
     res.render("buy")
 })
 
+app.get("/clientAdd/:agentID", function (req, res) {
+
+    console.log("working");
+    console.log(req.params.agentID);
+    res.render("addClient")
+    
+})
+
+app.post("/clientAdd", function(req, res){
+    //console.log(req.body.dob);
+
+    client.create({
+        AadharNo : Number(req.body.AadharNo),
+        FirstName : req.body.firstName,
+        MiddleName : req.body.middleName,
+        LastName : req.body.lastName,
+        Age : Number(req.body.age),
+        Height : Number(req.body.height),
+        Weight : Number(req.body.weightName),
+        DOB : req.body.dob,
+        AgentID : req.body.agentID
+    })
+
+    agent.findOne({
+        where : {
+            AgentID : req.body.agentID
+        }
+    }).then(record => {
+        if(record){
+            record.update({
+                NumberOfClients : NumberOfClients + 1
+            })
+        }
+    })
+    
+} )
 
 app.listen(3000, function(){
     console.log("server is up and running on port 3000");

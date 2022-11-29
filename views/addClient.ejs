@@ -1,0 +1,25 @@
+<%- include("partials/header.ejs") -%>
+<form action="/clientAdd" method="post">
+  <label for="AadharNo">Aadhar Number</label>
+  <input type="text" name="AadharNo" id="AadharNo" /><br />
+  <label for="firstName">First Name</label>
+  <input type="text" name="firstName" id="firstName" /><br />
+  <label for="middleName">Middle Name</label>
+  <input type="text" name="middleName" id="middleName" /><br />
+  <label for="lastName">Last Name</label>
+  <input type="text" name="lastName" id="lastName" /><br />
+  <label for="age">Age</label>
+  <input type="text" name="age" id="age" /><br />
+  <label for="height">Height</label>
+  <input type="text" name="height" id="height" /><br />
+  <label for="weight">Weight</label>
+  <input type="text" name="weight" id="weight" /><br />
+  <label for="dob">DOB</label>
+  <input type="date" name="dob" id="dob" /><br />
+  <label for="agentID">Agent ID</label>
+  <input type="text" name="agentID" id="agentID" /><br />
+
+  <button type="submit" name="submit">Submit</button>
+</form>
+
+<%- include("partials/footer.ejs") -%>
