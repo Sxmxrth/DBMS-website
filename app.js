@@ -268,17 +268,17 @@ app.post("/clientAdd", function(req, res){
         AgentID : req.body.agentID
     })
 
-    agent.findOne({
-        where : {
-            AgentID : req.body.agentID
-        }
-    }).then(record => {
-        if(record){
-            record.update({
-                NumberOfClients : NumberOfClients + 1
-            })
-        }
-    })
+    // agent.findOne({
+    //     where : {
+    //         AgentID : req.body.agentID
+    //     }
+    // }).then(record => {
+    //     if(record){
+    //         record.update({
+    //             NumberOfClients : NumberOfClients + 1
+    //         })
+    //     }
+    // })
     
 } )
 
